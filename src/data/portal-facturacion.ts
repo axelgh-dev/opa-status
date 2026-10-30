@@ -1,0 +1,71 @@
+import type { Project } from '../types'
+
+export const portal: Project = {
+  id: 'portal-facturacion',
+  name: 'Portal de facturación y control',
+  client: 'OPA Billing Portal · Despacho OPA Asesores',
+  summary:
+    'Portal para que los clientes de OPA emitan y den seguimiento a sus facturas (CFDI), separen ingresos fiscales y no fiscales, y concilien sus cobros sin depender del despacho.',
+  owner: 'Axel Gutiérrez Hernández',
+  updated: '2026-10-29',
+  overall: { status: 'demo-lista', label: 'Demo lista' },
+  currentPhaseId: 'f1',
+  currentStage: 'Demo lista; pendiente de aprobación y de definir el backend',
+  nextStep: 'Aprobación de la demo por el despacho y definición del backend (Fase 2).',
+  headline: { label: 'módulos terminados', done: 7, total: 8 },
+  phases: [
+    { id: 'f1', name: 'Frontend con datos simulados', description: 'Todas las pantallas y flujos funcionando de punta a punta con datos de ejemplo.', status: 'listo', period: 'Inicio 15 sep 2026' },
+    { id: 'f2', name: 'Servidor, base de datos y acceso real', description: 'Backend (Node/Express), base de datos y autenticación real.', status: 'pendiente', period: 'Fechas por definir' },
+    { id: 'f3', name: 'Timbrado real con el PAC', description: 'Integración con el proveedor de timbrado (Multifacturas) y XML/PDF fiscales reales.', status: 'pendiente', period: 'Fechas por definir' },
+    { id: 'f4', name: 'Administración y bancos', description: 'Módulo Admin, conciliación bancaria automática y comunicaciones masivas.', status: 'pendiente', period: 'Fechas por definir' },
+  ],
+  metrics: [
+    { label: 'Pruebas automáticas', value: '619', note: '67 archivos · todas en verde' },
+    { label: 'Vulnerabilidades', value: '0', note: 'en dependencias' },
+    { label: 'Conexión SAT / bancos', value: '0 %', note: 'Fases 2 y 3' },
+    { label: 'Último commit', value: '824a06d', note: 'CI de GitHub por confirmar' },
+  ],
+  pending: [
+    { id: 1, title: 'Plazo para emitir el complemento de pago', detail: 'Hoy se usa el día 5 del mes siguiente.', status: 'por-confirmar' },
+    { id: 2, title: 'Umbrales de cobranza y definiciones de Reportes', detail: 'Validar con usuarios del despacho.', status: 'por-validar' },
+    { id: 3, title: 'Anticipos de clientes', detail: 'Requiere definir su tratamiento fiscal con el despacho. Fuera de la Fase 1.', status: 'por-confirmar' },
+    { id: 4, title: 'Módulo Admin', detail: 'Cuentas del portal y métricas de uso. Previsto para una fase posterior.', status: 'futuro' },
+    { id: 5, title: 'Estado de cuenta bancario y conciliación automática', detail: 'Fuera de la demo por decisión del responsable.', status: 'futuro' },
+    { id: 6, title: 'Proveedores como catálogo', detail: 'Mejora futura, no esencial.', status: 'futuro' },
+    { id: 7, title: 'Cliente HTTP real', detail: 'Se construye cuando exista el backend.', status: 'futuro' },
+  ],
+  stoppers: [
+    { title: 'Aprobación de la demo y definición del backend', detail: 'La Fase 2 no puede iniciar hasta que el despacho apruebe la demo y se defina el backend.', blocks: 'Fase 2' },
+    { title: 'Reglas fiscales sin confirmar', detail: 'Plazo del complemento de pago y tratamiento de anticipos deben aclararse con el despacho antes de la Fase 2.', blocks: 'Fase 2' },
+  ],
+  risks: [
+    { title: 'Timbrado y cancelación simulados, sin validez fiscal', severity: 'alta', mitigation: 'Todos los documentos indican «demostración, sin validez fiscal»; el XML y PDF fiscales los emitirá el PAC.' },
+    { title: 'Credenciales y certificados reales no deben pasar por el navegador', severity: 'alta', mitigation: 'El frontend nunca habla con el PAC; todo irá por el backend privado.' },
+    { title: 'Reglas fiscales pendientes de confirmar', severity: 'media', mitigation: 'Confirmar con el despacho antes de la Fase 2.' },
+    { title: 'Datos de la demo solo viven en la sesión del navegador', severity: 'baja', mitigation: 'Por diseño en la demo; con backend se guardarán en base de datos.' },
+  ],
+  milestones: [
+    { title: 'Inicio de la Fase 1 (15 sep 2026)', done: true },
+    { title: 'Auditoría y plan de mejora de 12 pasos', done: true },
+    { title: 'Flujos tipo Odoo y PDF con timbre de demostración', done: true },
+    { title: 'Revisión final en navegador, sin errores (29 oct)', done: true },
+    { title: 'Demo publicada en GitHub', done: true },
+    { title: 'Aprobación de la demo por el despacho', done: false },
+    { title: 'Definición del backend', done: false },
+  ],
+  modules: [
+    { name: 'Acceso', description: 'Inicio y cierre de sesión, sesión expirada, empresas aisladas entre sí.', status: 'listo' },
+    { name: 'Resumen', description: 'Ingresos del periodo, pendientes, alertas y actividad reciente.', status: 'listo' },
+    { name: 'Clientes y productos', description: 'Altas con validación fiscal (RFC, régimen, uso de CFDI).', status: 'listo' },
+    { name: 'Ventas', description: 'Cotización, orden, factura, timbrado, notas de crédito, complementos de pago y cancelación.', status: 'listo' },
+    { name: 'Seguimiento', description: 'Ingresos fiscales y no fiscales, gastos, cuentas, conciliación e importación desde Excel/CSV.', status: 'listo' },
+    { name: 'Reportes', description: 'Resumen narrativo con KPIs y PDF descargable.', status: 'listo' },
+    { name: 'Perfil y ajustes', description: 'Datos fiscales, certificado (CSD), monedas, impuestos y plantilla de factura.', status: 'listo' },
+    { name: 'Admin', description: 'Cuentas del portal y métricas de uso para el equipo de OPA.', status: 'fase-posterior' },
+  ],
+  log: [
+    { date: '2026-10-29', text: 'Revisión final de la demo: recorrido completo de todos los módulos sin errores. Fase 1 terminada y publicada.' },
+    { date: '2026-10', text: 'Auditoría y plan de mejora de 12 pasos; flujos al estilo Odoo; PDF con timbre de demostración y código QR.' },
+    { date: '2026-09-15', text: 'Inicio de la Fase 1.' },
+  ],
+}
